@@ -34,7 +34,6 @@ cd <repo-name>
 dotnet run --project src/UnitConversionApi
 
 # The API will be available at https://localhost:5001 (or http://localhost:5038)
-# Scalar API docs UI is served at the root
 ```
 
 ### Run the UI (Frontend)
@@ -52,12 +51,6 @@ npm install
 npm start
 
 # The UI will be available at http://localhost:4200
-```
-
-### Run Tests
-
-```bash
-dotnet test
 ```
 
 ### Run with Docker
@@ -171,9 +164,6 @@ curl "https://localhost:5001/api/units/temperature"
 4. **RFC 7807 ProblemDetails for Errors**
    All error responses follow the [RFC 7807](https://www.rfc-editor.org/rfc/rfc7807) standard, providing structured, machine-readable error information.
 
-5. **Native OpenAPI + Scalar UI**
-   Uses .NET 10's built-in `AddOpenApi()` instead of Swashbuckle (which is deprecated), paired with [Scalar](https://scalar.com/) for a modern, interactive API documentation UI.
-
 6. **Dependency Injection**
    All converters are registered via DI as `IUnitConverter` singletons. The `UnitConverterRegistry` aggregates them automatically — no manual wiring needed when adding new converters.
 
@@ -212,16 +202,3 @@ builder.Services.AddSingleton<IUnitConverter, AreaConverter>();
 
 That's it — the registry and API endpoints automatically discover and serve the new category.
 
----
-
-## Testing
-
-The solution includes **69 tests** across three layers:
-
-- **Unit Tests** — Individual converter accuracy (known conversions, edge cases, bidirectional consistency)
-- **Service Tests** — Registry dispatch logic, error handling
-- **Integration Tests** — Full HTTP pipeline via `WebApplicationFactory` (happy paths, validation errors, 404s)
-
-```bash
-dotnet test --verbosity normal
-```

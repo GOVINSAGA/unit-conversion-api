@@ -1,4 +1,4 @@
-using Scalar.AspNetCore;
+
 using UnitConversionApi.Middleware;
 using UnitConversionApi.Services;
 using UnitConversionApi.Services.Converters;
@@ -22,8 +22,7 @@ builder.Services.AddSingleton<UnitConverterRegistry>();
 // Controllers
 builder.Services.AddControllers();
 
-// OpenAPI (native .NET 10 support)
-builder.Services.AddOpenApi();
+
 
 // CORS — allow all origins for development / demo purposes
 builder.Services.AddCors(options =>
@@ -47,15 +46,7 @@ var app = builder.Build();
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 
-// OpenAPI document endpoint
-app.MapOpenApi();
 
-// Scalar API reference UI (modern replacement for Swagger UI)
-app.MapScalarApiReference(options =>
-{
-    options.WithTitle("Unit Conversion API")
-           .WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient);
-});
 
 app.UseCors();
 app.UseHttpsRedirection();
@@ -64,6 +55,3 @@ app.MapControllers();
 
 app.Run();
 
-// Make the Program class accessible for integration tests
-// See: https://learn.microsoft.com/en-us/aspnet/core/test/integration-tests
-public partial class Program { }

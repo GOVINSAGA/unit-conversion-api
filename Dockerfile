@@ -4,7 +4,6 @@ WORKDIR /src
 # Copy solution and project files first (layer caching)
 COPY UnitConversionApi.sln* ./
 COPY src/UnitConversionApi/UnitConversionApi.csproj src/UnitConversionApi/
-COPY tests/UnitConversionApi.Tests/UnitConversionApi.Tests.csproj tests/UnitConversionApi.Tests/
 RUN dotnet restore
 
 # Copy everything and build

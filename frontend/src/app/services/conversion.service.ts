@@ -19,7 +19,11 @@ export interface ConversionResponse {
   providedIn: 'root'
 })
 export class ConversionService {
-  private readonly apiUrl = 'http://localhost:5038/api';
+  // If running locally in dev mode (4200), hit the .NET server on 5038
+  // If running via Docker Compose (where Nginx serves the UI), use the API exposed on 8080
+  private readonly apiUrl = window.location.port === '4200' 
+    ? 'http://localhost:5038/api' 
+    : 'http://localhost:8080/api';
   private readonly http = inject(HttpClient);
 
   getUnits(): Observable<UnitCategoryInfo[]> {

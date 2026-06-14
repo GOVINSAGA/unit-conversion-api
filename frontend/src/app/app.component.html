@@ -1,0 +1,101 @@
+<main class="app-container">
+  <div class="converter-card">
+    <header class="card-header">
+      <div class="header-content">
+        <div class="icon-wrapper">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 3v6h-6"/><path d="M21 3l-7.5 7.5"/><path d="M3 21v-6h6"/><path d="M3 21l7.5-7.5"/>
+          </svg>
+        </div>
+        <div>
+          <h1>Unit Converter</h1>
+          <p class="subtitle">Fast & accurate conversions</p>
+        </div>
+      </div>
+    </header>
+
+    <div class="card-body">
+      <!-- Error Message -->
+      <div class="error-banner" *ngIf="error">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line>
+        </svg>
+        <span>{{ error }}</span>
+      </div>
+
+      <!-- Category Selector -->
+      <div class="form-group">
+        <label for="category">Measurement Type</label>
+        <div class="select-wrapper">
+          <select id="category" (change)="onCategoryChange($event)" [value]="selectedCategory?.category">
+            <option *ngFor="let cat of categories" [value]="cat.category">
+              {{ cat.category | titlecase }}
+            </option>
+          </select>
+          <div class="select-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Conversion Area -->
+      <div class="conversion-section">
+        
+        <!-- From -->
+        <div class="input-group">
+          <div class="form-group">
+            <label for="fromUnit">From</label>
+            <div class="select-wrapper">
+              <select id="fromUnit" [(ngModel)]="fromUnit" (ngModelChange)="onInputChange()">
+                <option *ngFor="let unit of selectedCategory?.units" [value]="unit">
+                  {{ unit | titlecase | slice:0:15 }}{{ unit.length > 15 ? '...' : '' }}
+                </option>
+              </select>
+              <div class="select-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+            </div>
+          </div>
+          <div class="value-input-wrapper">
+            <input type="number" [(ngModel)]="inputValue" (ngModelChange)="onInputChange()" placeholder="Enter value..." />
+          </div>
+        </div>
+
+        <!-- Swap Button -->
+        <div class="swap-wrapper">
+          <button class="btn-swap" (click)="swapUnits()" title="Swap units" [class.spinning]="isLoading">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="16 3 21 3 21 8"></polyline>
+              <line x1="4" y1="14" x2="21" y2="3"></line>
+              <polyline points="8 21 3 21 3 16"></polyline>
+              <line x1="20" y1="10" x2="3" y2="21"></line>
+            </svg>
+          </button>
+        </div>
+
+        <!-- To -->
+        <div class="input-group result-group">
+          <div class="form-group">
+            <label for="toUnit">To</label>
+            <div class="select-wrapper">
+              <select id="toUnit" [(ngModel)]="toUnit" (ngModelChange)="onInputChange()">
+                <option *ngFor="let unit of selectedCategory?.units" [value]="unit">
+                  {{ unit | titlecase | slice:0:15 }}{{ unit.length > 15 ? '...' : '' }}
+                </option>
+              </select>
+              <div class="select-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+            </div>
+          </div>
+          <div class="value-result-wrapper" [class.loading]="isLoading">
+             <div class="result-text" *ngIf="resultValue !== null && !isLoading">
+               {{ resultValue | number:'1.0-6' }}
+             </div>
+             <div class="skeleton-loader" *ngIf="isLoading"></div>
+             <div class="result-placeholder" *ngIf="resultValue === null && !isLoading">
+               ---
+             </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</main>

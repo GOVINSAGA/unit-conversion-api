@@ -27,11 +27,31 @@ A RESTful API built with **ASP.NET Core (.NET 10)** for converting numerical val
 git clone <repo-url>
 cd <repo-name>
 
+### Run the API (Backend)
+
+```bash
 # Run the API
 dotnet run --project src/UnitConversionApi
 
-# The API will be available at https://localhost:5001
-# Scalar API docs UI is served at the root: https://localhost:5001/
+# The API will be available at https://localhost:5001 (or http://localhost:5038)
+# Scalar API docs UI is served at the root
+```
+
+### Run the UI (Frontend)
+
+The project includes a modern Angular frontend. To run it, you need [Node.js](https://nodejs.org/) installed.
+
+```bash
+# Open a new terminal and navigate to the frontend directory
+cd frontend
+
+# Install dependencies
+npm install
+
+# Start the Angular development server
+npm start
+
+# The UI will be available at http://localhost:4200
 ```
 
 ### Run Tests

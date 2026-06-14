@@ -1,0 +1,61 @@
+## Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+## NuGet
+*.nupkg
+*.snupkg
+**/[Pp]ackages/*
+*.nuget.props
+*.nuget.targets
+project.lock.json
+project.fragment.lock.json
+
+## Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.rsuser
+
+## Rider
+.idea/
+
+## VS Code
+.vscode/
+
+## User-specific files
+*.suo
+*.user
+*.sln.docstates
+
+## OS files
+[Tt]humbs.db
+*.DS_Store
+
+## Test results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+TestResult.xml
+
+## dotnet tool
+.dotnet/
+
+## Misc
+*.tmp
+*.bak
+*.swp
+*~.nib
+
+## Assessment files (not part of the solution)
+Software_Engineer_Test.docx
